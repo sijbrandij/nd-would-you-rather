@@ -2,12 +2,108 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  color: #252525;
+}
+
+a {
+  text-decoration: none;
+  color: #252525;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.nav li:first-child {
+  padding-left: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px;
+  text-decoration: none;
 }
 
 .avatar {
-  width: 100px;
-  height: auto;
-  border-radius: 25px;
+  height: 100px;
+  border-radius: 40px;
   margin: 10px;
+  float: right;
 }
 
+.avatar-small {
+  height: 30px;
+  border-radius: 10px;
+  margin: 10px;
+  float: right;
+}
+
+.question, .user {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  cursor: pointer;
+  min-height: 50px;
+  position: relative;
+}
+
+.user-info {
+	color: #969696;
+	font-size: 12px;
+	position: absolute;
+	left: 80%;
+	width: 20%;
+}
+
+.option-one {
+	width: 40%;
+	position: absolute;
+	left: 0%;
+	padding: 5px;
+}
+
+.option-one>span {
+	display: block;
+	padding: 5px;
+}
+
+.option-two {
+	width: 40%;
+	position: absolute;
+	left: 40%;
+	padding: 5px;
+}
+
+.option-two>span {
+	display: block;
+	padding: 5px;
+}
+
+.green {
+	color: green;
+}

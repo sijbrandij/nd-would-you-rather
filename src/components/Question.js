@@ -24,34 +24,40 @@ class Question extends Component {
 				className='question' 
 				onClick={(e) => this.toQuestion(e, question.id)}
 			>
-				<img
-					src={user.avatarURL}
-					alt={`avatar of ${author}`}
-					className='avatar'
-				/>
-				<div>
-					<span>{user.name}</span>
-					<div>{formatDate(timestamp)}</div>
-				</div>
-				<div className='optionOne'>
+				<div className='option-one'>
 					{optionOne.text}
-					<FaCheck />
-					{optionOne.votes.length}
+					<span>
+						<FaCheck />
+						{optionOne.votes.length}
+					</span>
 				</div>
-				<div className='optionTwo'>
+				<div className='option-two'>
 					{optionTwo.text}
-					<FaCheck />
-					{optionTwo.votes.length}
+					<span className={optionTwo.votes.includes(this.props.authedUser) ? 'green' : ''}>
+						<FaCheck />
+						{optionTwo.votes.length}
+					</span>
+				</div>
+				<div className='user-info'>
+					<img
+						src={user.avatarURL}
+						alt={`avatar of ${author}`}
+						className='avatar-small'
+					/>
+					<span>{user.name}</span>
+					<br />
+					<span>{formatDate(timestamp)}</span>
 				</div>
 			</div>
 		)
 	}
 }
 
-function mapStateToProps ({users, questions}, { id }) {
+function mapStateToProps ({authedUser,users, questions}, { id }) {
 	const question = questions[id]
 
 	return {
+		authedUser,
 		users,
 		question: question
 			? question

@@ -5,7 +5,7 @@ import Question from './Question'
 class Dashboard extends Component { 
 	render() {
 		return (
-			<div>
+			<div className='center'>
 				<h3>Would You Rather?</h3>
 				<ul>
 					{this.props.questionIds.map((id) => (
