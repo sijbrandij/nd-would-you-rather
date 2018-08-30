@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import User from './User'
 
 class Leaderboard extends Component {
 	render() {
@@ -9,7 +10,7 @@ class Leaderboard extends Component {
 				<ul>
 					{this.props.userIds.map((id) =>
 						<li key={id}>
-							{id}
+							<User id={id} />
 						</li>
 					)}
 				</ul>
@@ -21,7 +22,7 @@ class Leaderboard extends Component {
 function mapStateToProps ({ users }) {
 	return {
 		userIds: Object.keys(users)
-			.sort((a,b) => (users[b].questions.length + users[b].answers.length) - (users[a].questions.length + users[a].answers.length))
+			.sort((a,b) => (users[b].questions.length + Object.keys(users[b].answers).length) - (users[a].questions.length + Object.keys(users[a].answers).length))
 	}
 }
 
