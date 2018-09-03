@@ -2,13 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/helpers'
 import { FaCheck } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 class Question extends Component {
-	toQuestion = (e, id) => {
-		e.preventDefault()
-		// Todo: redirect to question page
-	}
-
 	render() {
 		const { question } = this.props
 
@@ -16,13 +12,13 @@ class Question extends Component {
 			return <p>This poll doesn't exist</p>
 		}
 
-		const { optionOne, optionTwo, author, timestamp } = question
+		const { optionOne, optionTwo, author, timestamp, id } = question
 		const user = this.props.users[author]
 
 		return (
-			<div 
+			<Link
+				to={`/questions/${id}`}
 				className='question' 
-				onClick={(e) => this.toQuestion(e, question.id)}
 			>
 				<div className='option-one'>
 					{optionOne.text}
@@ -48,7 +44,7 @@ class Question extends Component {
 					<br />
 					<span>{formatDate(timestamp)}</span>
 				</div>
-			</div>
+			</Link>
 		)
 	}
 }
