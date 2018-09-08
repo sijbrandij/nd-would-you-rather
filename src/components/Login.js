@@ -47,6 +47,7 @@ class Login extends Component {
 
 				<form className='login' onSubmit={this.handleSubmit}>
 					<select onChange={this.handleChange}>
+						<option value=''>Choose a user</option>
 						{userIds.map((userId) => (
 							<option key={userId} value={userId}>{this.props.users[userId].name}</option>
 						))}
