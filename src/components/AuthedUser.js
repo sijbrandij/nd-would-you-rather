@@ -4,18 +4,16 @@ import { NavLink } from 'react-router-dom'
 import { handleSetAuthedUser } from '../actions/authedUser'
 
 class AuthedUser extends Component {
-	handleLogout = (e) => {
-		e.preventDefault()
-
+	handleLogout = () => {
 		const { dispatch } = this.props
 
-		dispatch(handleSetAuthedUser(''))
+		dispatch(handleSetAuthedUser(null))
 	}
 
 	render() {
-		if (this.props.authedUser === "") {
+		if (this.props.authedUser === null) {
 			return (
-				<li>
+				<li className='pull-right'>
 					<NavLink to='/login' activeClassName='active'>
 						<button>Login</button>
 					</NavLink>
@@ -23,7 +21,7 @@ class AuthedUser extends Component {
 			)
 		} else {
 			return (
-				<li>
+				<li className='pull-right'>
 					<button onClick={this.handleLogout}>
 						Logout {this.props.authedUser}
 					</button>

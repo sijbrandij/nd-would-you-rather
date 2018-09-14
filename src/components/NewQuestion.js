@@ -34,6 +34,10 @@ class NewQuestion extends Component {
 	}
 
 	render() {
+		if (this.props.authedUser === null) {
+			return <Redirect to='/login' />
+		}
+
 		const { optionOneText, optionTwoText, toHome } = this.state
 
 		if (toHome === true) {
@@ -74,5 +78,10 @@ class NewQuestion extends Component {
 		)
 	}
 }
+function mapStateToProps ({ authedUser }) {
+	return {
+		authedUser
+	}
+}
 
-export default connect()(NewQuestion)
+export default connect(mapStateToProps)(NewQuestion)

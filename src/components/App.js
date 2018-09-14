@@ -37,9 +37,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps ({ authedUser, users }) {
 	return {
-		loading: authedUser === null
+		loading: users === []
 	}
 }
 

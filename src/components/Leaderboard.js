@@ -1,28 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import User from './User'
+import { Redirect } from 'react-router-dom'
 
-class Leaderboard extends Component {
-	render() {
-		return (
-			<div className='center'>
-				<h3>Leaderboard</h3>
-				<ul>
-					{this.props.userIds.map((id) =>
-						<li key={id}>
-							<User id={id} />
-						</li>
-					)}
-				</ul>
-			</div>
-		)
+const Leaderboard = ({ authedUser, userIds }) => {
+	if (authedUser === null) {
+		return <Redirect to='/login' />
 	}
+
+	return (
+		<div className='center'>
+			<h3>Leaderboard</h3>
+			<ul>
+				{userIds.map((id) =>
+					<li key={id}>
+						<User id={id} />
+					</li>
+				)}
+			</ul>
+		</div>
+	)
 }
 
-function mapStateToProps ({ users }) {
+function engagement (user) {
+	return user.questions.length + Object.keys(user.answers).length
+}
+
+function mapStateToProps ({ authedUser, users }) {
 	return {
+		authedUser,
 		userIds: Object.keys(users)
-			.sort((a,b) => (users[b].questions.length + Object.keys(users[b].answers).length) - (users[a].questions.length + Object.keys(users[a].answers).length))
+			.sort((a,b) => engagement(users[b]) - engagement(users[a]))
 	}
 }
 

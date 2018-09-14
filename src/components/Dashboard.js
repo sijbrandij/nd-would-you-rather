@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
+import { Redirect } from 'react-router-dom'
 
 class Dashboard extends Component { 
 	render() {
+		if (this.props.authedUser === null) {
+			return <Redirect to='/login' />
+		}
+
 		return (
 			<div className='center'>
 				<h3>Would You Rather?</h3>
@@ -19,8 +24,9 @@ class Dashboard extends Component {
 	}
 }
 
-function mapStateToProps ({ questions }) {
+function mapStateToProps ({ authedUser, questions }) {
 	return {
+		authedUser,
 		questionIds: Object.keys(questions)
 			.sort((a,b) => questions[b].timestamp - questions[a].timestamp)
 	}

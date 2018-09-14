@@ -35,24 +35,32 @@ class Login extends Component {
 
 	render() {
 		const { userIds } = this.props
-		const { toHome } = this.state
+		const { toHome, selectedUser } = this.state
 
 		if (toHome === true) {
 			return <Redirect to='/' />
 		}
 
 		return (
-			<div>
+			<div className='center'>
 				<h3>Login</h3>
 
 				<form className='login' onSubmit={this.handleSubmit}>
-					<select onChange={this.handleChange}>
-						<option value=''>Choose a user</option>
-						{userIds.map((userId) => (
-							<option key={userId} value={userId}>{this.props.users[userId].name}</option>
-						))}
-					</select>
-					<button type='submit'>Login</button>
+					<div className='clearfix'>
+						<select onChange={this.handleChange}>
+							<option value=''>Choose a user</option>
+							{userIds.map((userId) => (
+								<option key={userId} value={userId}>{this.props.users[userId].name}</option>
+							))}
+						</select>
+					</div>
+					<button 
+						type='submit'
+						className='btn'
+						disabled={selectedUser === null}
+					>
+						Login
+					</button>
 				</form>
 			</div>
 		)
