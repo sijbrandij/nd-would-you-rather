@@ -23,14 +23,14 @@ const Leaderboard = ({ authedUser, userIds }) => {
 }
 
 function engagement (user) {
-	return user.questions.length + Object.keys(user.answers).length
+	return (user.questions.length + Object.keys(user.answers).length)
 }
 
 function mapStateToProps ({ authedUser, users }) {
 	return {
 		authedUser,
 		userIds: Object.keys(users)
-			.sort((a,b) => engagement(users[b]) - engagement(users[a]))
+			.sort((a,b) => (engagement(users[b])) - (engagement(users[a])))
 	}
 }
 

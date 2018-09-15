@@ -14,6 +14,7 @@ export default function users (state = {}, action) {
     	return {
     		...state,
     		[action.authedUser]: {
+    			...state[action.authedUser],
     			answers: hash
     		}
     	}
