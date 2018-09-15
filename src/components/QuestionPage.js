@@ -1,31 +1,51 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import VoteButton from './VoteButton'
+import { handleSaveVote } from '../actions/questions'
 
-const QuestionPage = ({ question, authedUser, users }) => {
-	if (authedUser === null) {
-		return <Redirect to='/login' />
+class QuestionPage extends Component {
+	handleVote = (e) => {
+		const { dispatch, question, authedUser } = this.props
+
+		dispatch(handleSaveVote({
+			authedUser,
+			qid: question.id,
+			answer: e.target.value
+		}))
 	}
 
-	const vote = users[authedUser].answers[question.id]
-	const disabled = (vote !== undefined)
+	render() {
+		const { question, authedUser, users } = this.props
 
-	return (
-		<div className='center'>
-			<h1>Would You Rather?</h1>
-			<VoteButton 
-				optionText={question.optionOne.text}
-				disabled={disabled}
-				selected={question.optionOne.text === vote}
-			/>
-			<VoteButton 
-				optionText={question.optionTwo.text}
-				disabled={disabled} 
-				selected={question.optionTwo.text === vote}
-			/>
-		</div>
-	)
+		if (authedUser === null) {
+			return <Redirect to='/login' />
+		}
+
+		const vote = users[authedUser].answers[question.id]
+		const disabled = (vote !== undefined)
+
+		return (
+			<div className='center'>
+				<h1>Would You Rather?</h1>
+				<button
+					className='btn'
+					disabled={disabled}
+					selected={question.optionOne.text === vote}
+					onClick={this.handleVote}
+				>
+					I'd rather {question.optionOne.text}
+				</button>
+				<button 
+					className='btn'
+					disabled={disabled} 
+					selected={question.optionTwo.text === vote}
+					onClick={this.handleVote}
+				>
+					I'd rather {question.optionTwo.text}
+				</button>
+			</div>
+		)
+	}
 }
 
 function mapStateToProps ({ authedUser, questions, users }, props) {
