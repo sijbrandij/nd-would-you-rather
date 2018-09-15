@@ -1,38 +1,40 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Question from './Question'
+import { Redirect } from 'react-router-dom'
+import VoteButton from './VoteButton'
 
-const QuestionPage = (props) => {
-	const { 
-		id, 
-		optionOneVotes, 
-		optionTwoVotes, 
-		authedUser 
-	} = props
+const QuestionPage = ({ question, authedUser, users }) => {
+	if (authedUser === null) {
+		return <Redirect to='/login' />
+	}
+
+	const vote = users[authedUser].answers[question.id]
+	const disabled = (vote !== undefined)
 
 	return (
 		<div className='center'>
-			<Question id={id} />
-			{!optionOneVotes.includes(authedUser) && 
-				!optionTwoVotes.includes(authedUser)
-					? 'Vote!'
-					: 'You already voted'
-			}
+			<h1>Would You Rather?</h1>
+			<VoteButton 
+				optionText={question.optionOne.text}
+				disabled={disabled}
+				selected={question.optionOne.text === vote}
+			/>
+			<VoteButton 
+				optionText={question.optionTwo.text}
+				disabled={disabled} 
+				selected={question.optionTwo.text === vote}
+			/>
 		</div>
 	)
 }
 
 function mapStateToProps ({ authedUser, questions, users }, props) {
 	const { id } = props.match.params
+	const question = questions[id]
 	return {
-		id,
-		authedUser,
-		optionOneVotes: !questions[id]
-			? []
-			: questions[id].optionOne.votes,
-		optionTwoVotes: !questions[id]
-			? []
-			: questions[id].optionTwo.votes
+		question,
+		authedUser, 
+		users
 	}
 }
 
