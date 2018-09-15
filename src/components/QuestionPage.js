@@ -4,6 +4,10 @@ import { Redirect } from 'react-router-dom'
 import { handleSaveVote } from '../actions/questions'
 
 class QuestionPage extends Component {
+	state = {
+		toHome: false
+	}
+
 	handleVote = (e) => {
 		const { dispatch, question, authedUser } = this.props
 
@@ -12,13 +16,22 @@ class QuestionPage extends Component {
 			qid: question.id,
 			answer: e.target.value
 		}))
+
+		this.setState({
+			toHome: true
+		})
 	}
 
 	render() {
 		const { question, authedUser, users } = this.props
+		const { toHome } = this.state
 
 		if (authedUser === null) {
 			return <Redirect to='/login' />
+		}
+
+		if (toHome === true) {
+			return <Redirect to='/' />
 		}
 
 		const vote = users[authedUser].answers[question.id]
@@ -30,6 +43,7 @@ class QuestionPage extends Component {
 				<button
 					className='btn'
 					disabled={disabled}
+					value='optionOne'
 					selected={question.optionOne.text === vote}
 					onClick={this.handleVote}
 				>
@@ -38,6 +52,7 @@ class QuestionPage extends Component {
 				<button 
 					className='btn'
 					disabled={disabled} 
+					value='optionTwo'
 					selected={question.optionTwo.text === vote}
 					onClick={this.handleVote}
 				>

@@ -17,18 +17,12 @@ export default function questions (state = {}, action) {
 		case SAVE_QUESTION_ANSWER :
 			return {
 				...state,
-				[action.id]: {
-					...state[action.id],
-					optionOne: {
-						votes: action.answer === state[action.id].optionOne.text
-							? state[action.id].optionOne.votes.concat([action.authedUser])
-							: state[action.id].optionOne.votes
+				[action.qid]: {
+					...state[action.qid],
+					[action.answer]: {
+						...state[action.qid][action.answer],
+						votes: state[action.qid][action.answer].votes.concat([action.authedUser])
 					},
-					optionTwo: {
-						votes: action.answer === state[action.id].optionTwo.text
-							? state[action.id].optionTwo.votes.concat([action.authedUser])
-							: state[action.id].optionTwo.votes
-					}
 				}
 			}
 
