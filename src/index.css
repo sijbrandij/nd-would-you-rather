@@ -6,6 +6,12 @@ body {
 }
 
 a {
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
+
+a.question {
   text-decoration: none;
   color: #252525;
 }
@@ -22,6 +28,11 @@ a {
 
 .active {
   font-weight: bold;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #252525;
 }
 
 .nav ul {
