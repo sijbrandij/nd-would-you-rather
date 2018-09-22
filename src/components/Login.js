@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 class Login extends Component {
 	state = {
 		selectedUser: null,
-		toHome: false,
+		redirectToReferrer: false
 	}
 
 	handleChange = (e) => {
@@ -29,16 +29,18 @@ class Login extends Component {
 
 		this.setState({
 			selectedUser: null,
-			toHome: true,
+			redirectToReferrer: true
 		})
 	}
 
 	render() {
 		const { userIds } = this.props
-		const { toHome, selectedUser } = this.state
+		const { redirectToReferrer, selectedUser } = this.state
+		const { from } = this.props.location.state || { from: { pathname: '/' } }
 
-		if (toHome === true) {
-			return <Redirect to='/' />
+
+		if (redirectToReferrer === true) {
+			return <Redirect to={from} />
 		}
 
 		return (

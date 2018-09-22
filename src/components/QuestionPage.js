@@ -27,7 +27,10 @@ class QuestionPage extends Component {
 		const { toHome } = this.state
 
 		if (authedUser === null) {
-			return <Redirect to='/login' />
+			return <Redirect to={{
+				pathname: '/login',
+				state: { from: this.props.location.pathname }
+			}} />
 		}
 
 		if (toHome === true) {

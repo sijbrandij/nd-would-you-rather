@@ -5,7 +5,10 @@ import { Redirect } from 'react-router-dom'
 
 const Leaderboard = ({ authedUser, userIds }) => {
 	if (authedUser === null) {
-		return <Redirect to='/login' />
+		return <Redirect to={{
+				pathname: '/login',
+				state: { from: '/leaderboard' }
+			}} />
 	}
 
 	return (
