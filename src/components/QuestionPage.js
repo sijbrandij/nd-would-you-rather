@@ -26,6 +26,14 @@ class QuestionPage extends Component {
 		const { question, authedUser, users } = this.props
 		const { toHome } = this.state
 
+		if (question === undefined) {
+			return (
+				<div className='center'>
+					<h2>Oops! That question does not exist</h2>
+				</div>
+			)
+		}
+
 		if (authedUser === null) {
 			return <Redirect to={{
 				pathname: '/login',
@@ -68,11 +76,11 @@ class QuestionPage extends Component {
 					<h4>Stats</h4>
 					{optionOne.text}: ({optionOne.votes.length})
 					{" "}
-					{Math.floor((optionOne.votes.length / totalVotes) * 100)} %
+					{totalVotes === 0 ? 0 : Math.floor((optionOne.votes.length / totalVotes) * 100)} %
 					{' || '}
 					{optionTwo.text}: ({optionTwo.votes.length})
 					{' '}
-					{Math.floor((optionTwo.votes.length / totalVotes) * 100)} %
+					{totalVotes === 0 ? 0 : Math.floor((optionTwo.votes.length / totalVotes) * 100)} %
 				</div>
 				<div>
 					<h4>Author</h4>
