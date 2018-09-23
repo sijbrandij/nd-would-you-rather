@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { FaQuestion, FaCheck } from 'react-icons/fa'
 
 const User = (props) => {
 	const { user } = props
@@ -14,16 +13,14 @@ const User = (props) => {
 			<img
 				src={user.avatarURL}
 				alt={`avatar of ${user.name}`}
-				className='avatar'
+				className='avatar float-right'
 			/>
 			<div>
-				<span>{user.name}</span>
-			</div>
-			<div>
-				<FaQuestion />
-				{user.questions.length}
-				<FaCheck />
-				{Object.keys(user.answers).length}
+				{user.name}
+				{' || '}
+				{user.questions.length} questions asked
+				{' || '}
+				{Object.keys(user.answers).length} votes
 			</div>
 		</div>
 	)

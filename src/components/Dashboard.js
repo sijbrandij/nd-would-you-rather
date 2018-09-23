@@ -22,8 +22,8 @@ class Dashboard extends Component {
 			return <Redirect to='/login' />
 		}
 
-		const answeredQuestionIds = Object.keys(users[authedUser].answers)
-		const unansweredQuestionIds = Object.keys(questions).filter((questionId) => !answeredQuestionIds.includes(questionId))
+		const answeredQuestionIds = Object.keys(users[authedUser].answers).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+		const unansweredQuestionIds = Object.keys(questions).filter((questionId) => !answeredQuestionIds.includes(questionId)).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
 
 		return (
 			<div className='center'>

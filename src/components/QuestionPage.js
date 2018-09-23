@@ -39,6 +39,9 @@ class QuestionPage extends Component {
 
 		const vote = users[authedUser].answers[question.id]
 		const disabled = (vote !== undefined)
+		const user = users[question.author]
+		const totalVotes = question.optionOne.votes.length + question.optionTwo.votes.length
+		const { optionOne, optionTwo } = question
 
 		return (
 			<div className='center'>
@@ -47,20 +50,39 @@ class QuestionPage extends Component {
 					className='btn'
 					disabled={disabled}
 					value='optionOne'
-					selected={question.optionOne.text === vote}
+					selected={optionOne.text === vote}
 					onClick={this.handleVote}
 				>
-					I'd rather {question.optionOne.text}
+					I'd rather {optionOne.text}
 				</button>
 				<button 
 					className='btn'
 					disabled={disabled} 
 					value='optionTwo'
-					selected={question.optionTwo.text === vote}
+					selected={optionTwo.text === vote}
 					onClick={this.handleVote}
 				>
-					I'd rather {question.optionTwo.text}
+					I'd rather {optionTwo.text}
 				</button>
+				<div>
+					<h4>Stats</h4>
+					{optionOne.text}: ({optionOne.votes.length})
+					{" "}
+					{Math.floor((optionOne.votes.length / totalVotes) * 100)} %
+					{' || '}
+					{optionTwo.text}: ({optionTwo.votes.length})
+					{' '}
+					{Math.floor((optionTwo.votes.length / totalVotes) * 100)} %
+				</div>
+				<div>
+					<h4>Author</h4>
+					<img
+						src={user.avatarURL}
+						alt={`avatar of ${user.name}`}
+						className='avatar'
+					/>
+					<div>{user.name}</div>
+				</div>
 			</div>
 		)
 	}

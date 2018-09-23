@@ -19,7 +19,7 @@ const Question = ({ question, users, authedUser }) => {
 		>
 			<div className='option-one'>
 				{optionOne.text}
-				<span>
+				<span  className={optionOne.votes.includes(authedUser) ? 'green' : ''}>
 					<FaCheck />
 					{optionOne.votes.length}
 				</span>
